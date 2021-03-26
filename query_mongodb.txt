@@ -1,0 +1,61 @@
+db.posts.insert({
+title: 'Post One',
+body: 'Body of the post.',
+category: 'News',
+likes: 4,
+tags: ['news', 'events'],
+user:{
+name: 'cuongnh',
+status: 'author'
+},
+date: Date()
+})
+
+
+db.posts.insertMany([
+{
+title: 'Post Two',
+body: 'Body of the post.',
+category: 'News',
+date: Date()
+},
+{
+title: 'Post Three',
+body: 'Body of the post.',
+category: 'News',
+date: Date()
+},
+{
+title: 'Post Four',
+body: 'Body of the post.',
+category: 'News',
+date: Date()
+}
+])
+
+db.posts.find().pretty()
+
+db.post.find({category: 'News'}).pretty() #Tim kiem 
+
+db.posts.find().sort({title: -1}).pretty() -> sap xep.
+
+db.posts.find().forEach(function(doc) {print('Blog Post: ' + doc.title) }) -> forEach
+
+db.posts.findOne({title: 'Post One'}) -> tim kiem duy nhat.
+
+
+db.posts.update({title: 'Post Two'}, {title: 'Post Two', body: 'New Post 2 body', date: Date() }, {upsert: true}) -> update.
+
+db.posts.update({title: 'Post Two'},{$set: {body: 'Hello World'}}) -> update giong set.
+
+ db.posts.update({title: 'Post One'},{$inc: {likes: 2}}) -> tang bien likes them 2 don vi
+
+ db.posts.update({title: 'Post One'},{$rename: {likes: 'views'}}) -> rename 1 field
+
+db.posts.remove({title: 'Post Four'}) -> remove 1 document
+
+db.posts.update({title: 'Post One'}, {$set: {comments: [{author: 'cuong', body: 'good', date: Date()},{author: 'nam', body: 'well', date: Date()}]}}) -> update co khoa ngoai.
+
+db.posts.find({comments:{$elemMatch:{author:'cuong'}}}) -> tim kiem theo truong tap con.
+
+db.posts.find({'name': '/cu/'}) -> tim kiem gan dung = like
